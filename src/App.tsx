@@ -25,8 +25,6 @@ const App = () => {
   useEffect(() => {
     if (accounts.length > 0) {
       (async () => {
-        console.log(evmAccount);
-
         const balanceResponse = await customProvider.getBalance(evmAccount);
         setBalanceEVM(ethers.utils.formatEther(balanceResponse));
 
