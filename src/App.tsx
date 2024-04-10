@@ -13,7 +13,7 @@ import { copyToClipboard, truncateAddress } from './utils';
 // --
 
 const App = () => {
-  const { provider, evmAccount, chainId,  } = useETHProvider();
+  const { provider, evmAccount, chainId } = useETHProvider();
   const { openConnectModal, disconnect } = useConnectModal();
   const { accounts, sendBitcoin, getNetwork } = useBTCProvider();
 
