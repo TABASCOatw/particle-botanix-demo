@@ -13,7 +13,7 @@ import { copyToClipboard, truncateAddress } from './utils';
 // --
 
 const App = () => {
-  const { provider, evmAccount, chainId } = useETHProvider();
+  const { provider, account, chainId } = useETHProvider();
   const { openConnectModal, disconnect } = useConnectModal();
   const { accounts, sendBitcoin, getNetwork } = useBTCProvider();
 
@@ -25,7 +25,7 @@ const App = () => {
   useEffect(() => {
     if (accounts.length > 0) {
       (async () => {
-        const balanceResponse = await customProvider.getBalance(evmAccount);
+        const balanceResponse = await customProvider.getBalance(account);
         setBalanceEVM(ethers.utils.formatEther(balanceResponse));
 
         const networkSuffix = (await getNetwork() === 'livenet') ? 'main' : 'test3';
@@ -34,7 +34,7 @@ const App = () => {
           .then(data => setBalanceBTC(data.balance / 1e8));
       })();
     }
-  }, [accounts, evmAccount]);
+  }, [accounts, account]);
 
   const handleLogin = () => {
     openConnectModal();
@@ -83,7 +83,7 @@ const App = () => {
 
         <img src="https://i.imgur.com/GnoBZ0G.png" alt="Logo 2" className="logo logo-big-b2" />
       </div>
-      {!evmAccount ? (
+      {!account ? (
       <button className="sign-button" onClick={handleLogin}>
         <img src="https://i.imgur.com/aTxNcXk.png" alt="Bitcoin Logo" className="bitcoin-logo" />
         Connect
@@ -94,8 +94,8 @@ const App = () => {
           <div className="address-balance-container">
             <span className="balance">{balanceEVM} BTC</span>
             <div className="address-copy-container">
-              <span className="address">{truncateAddress(evmAccount)}</span>
-              <FontAwesomeIcon icon={faCopy} className="copy-icon" onClick={() => copyToClipboard(evmAccount)} />
+              <span className="address">{truncateAddress(account)}</span>
+              <FontAwesomeIcon icon={faCopy} className="copy-icon" onClick={() => copyToClipboard(account)} />
             </div>
           </div>
           <div className="address-balance-container">
